@@ -12,7 +12,7 @@
 import { META_SERVICE, META_APP } from '@opentiny/tiny-engine-meta-register'
 import engineConfig from './engine.config'
 import { HttpService } from './src/composable'
-import DemoPlugin from "./demo-plugin";
+import DemoPlugin from "./lowcode-plugin/demo-plugin"
 
 const baseURL = import.meta.env.BASE_URL || '.'
 const baseURLWithoutSlash = baseURL.replace(/\/$/, '')
@@ -44,6 +44,9 @@ export default {
         // 支持切换组
         [META_APP.Lang]: {
           insertAfter: META_APP.ViewSetting
+        },
+        'engine.plugins.pluginDemo': {
+          insertBefore: META_APP.Schema
         }
       }
     }
@@ -55,5 +58,5 @@ export default {
       previewUrl: ['prod', 'alpha'].includes(import.meta.env.MODE) ? `${baseURLWithoutSlash}/preview.html` : ''
     }
   },
-  [DemoPlugin.id]: DemoPlugin
+  'engine.plugins.pluginDemo': DemoPlugin
 }
